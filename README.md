@@ -1,266 +1,311 @@
-# Capstone Backend
+# Capstone Backend API Documentation
 
-## User Service 
+## User Service
 
-Most likely host: http:localhost:8000/
+**Base URL:** `http://localhost:8000/users/`
 
-users/registration POST
+### POST `/registration`
+**Description:** Registers a new user.
 
-Expected Body:
-
+**Request Body:**
+```json
 {
-email: string 
-password: string 
-name: string
+  "email": "string",
+  "password": "string",
+  "name": "string"
 }
+```
 
-Response: 
+**Response:**
+- **Body:** Empty
+- **Cookie:** JWT token containing claims with `userId` and `role`
 
-Body: empty
+---
 
-Cookie: JWT (containing claims with userId and role)
+### GET `/users/{id}`
+**Description:** Retrieves user details by ID.
 
+**Path Parameters:**
+- `id` (required) – The ID of the user.
 
-users/{id}
-
-id within the param
-
-returns:
-
+**Response:**
+```json
 {
-`id` int NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(50) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `phone` varchar(25) DEFAULT NULL,
-  `resume` text,
-  `role` varchar(50),
-}  
-
-users/login
-
-{
-email: string 
-password: string 
+  "id": "int",
+  "fullName": "varchar(50)",
+  "email": "varchar(50)",
+  "address": "varchar(100)",
+  "phone": "varchar(25)",
+  "resume": "text",
+  "role": "varchar(50)"
 }
+```
 
-Response: 
+---
 
-Body: empty
+### POST `/login`
+**Description:** Authenticates the user.
 
-Cookie: JWT (containing claims with userId and role)
-
-
-users/{id}
-
-expecting id param
-Cookie which contains the jwt of the user
-
-users/id?=id PUT
-expecting id param
-Cookie which contains the jwt of the user
+**Request Body:**
+```json
 {
-  `full_name` varchar(50) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `phone` varchar(25) DEFAULT NULL,
-  `resume` text,
-  `role` varchar(50),
-  }
+  "email": "string",
+  "password": "string"
+}
+```
 
+**Response:**
+- **Body:** Empty
+- **Cookie:** JWT token containing claims with `userId` and `role`
 
+---
+
+### PUT `/users/{id}`
+**Description:** Updates user details.
+
+**Path Parameters:**
+- `id` (required) – The ID of the user.
+
+**Request Body:**
+```json
+{
+  "fullName": "varchar(50)",
+  "email": "varchar(50)",
+  "address": "varchar(100)",
+  "phone": "varchar(25)",
+  "resume": "text",
+  "role": "varchar(50)"
+}
+```
+
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
+---
 
 ## Job & Application Service
 
+**Base URL:** `http://localhost:8000/api/`
 
-job/id?=id 
+### GET `/job/{id}`
+**Description:** Retrieves job details by ID.
 
-requires id param 
+**Path Parameters:**
+- `id` (required) – The ID of the job.
 
-response:
-
+**Response:**
+```json
 {
-`id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `department` varchar(25) DEFAULT NULL,
-  `listing_title` varchar(100) DEFAULT NULL,
-  `date_listed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_closed` timestamp NULL DEFAULT NULL,
-  `job_title` varchar(45) DEFAULT NULL,
-  `job_description` text,
-  `additional_information` text,
-  `listing_status` varchar(25) DEFAULT NULL,
-  `experience_level` varchar(100) DEFAULT NULL,
+  "id": "int",
+  "userId": "int",
+  "department": "varchar(25)",
+  "listingTitle": "varchar(100)",
+  "dateListed": "timestamp",
+  "dateClosed": "timestamp",
+  "jobTitle": "varchar(45)",
+  "jobDescription": "text",
+  "additionalInformation": "text",
+  "listingStatus": "varchar(25)",
+  "experienceLevel": "varchar(100)"
 }
+```
 
-job POST
+---
 
-requires body:
+### POST `/job`
+**Description:** Creates a new job listing.
 
+**Request Body:**
+```json
 {
-  `user_id` int DEFAULT NULL,
-  `department` varchar(25) DEFAULT NULL,
-  `listing_title` varchar(100) DEFAULT NULL,
-  `date_listed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_closed` timestamp NULL DEFAULT NULL,
-  `job_title` varchar(45) DEFAULT NULL,
-  `job_description` text,
-  `additional_information` text,
-  `listing_status` varchar(25) DEFAULT NULL,
-  `experience_level` varchar(100) DEFAULT NULL,
-  `model_resume` text,
-  `model_cover_letter` text,
+  "userId": "int",
+  "department": "varchar(25)",
+  "listingTitle": "varchar(100)",
+  "dateListed": "timestamp",
+  "dateClosed": "timestamp",
+  "jobTitle": "varchar(45)",
+  "jobDescription": "text",
+  "additionalInformation": "text",
+  "listingStatus": "varchar(25)",
+  "experienceLevel": "varchar(100)",
+  "modelResume": "text",
+  "modelCoverLetter": "text"
 }
+```
 
-response: 
-
+**Response:**
+```json
 {
-`id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `department` varchar(25) DEFAULT NULL,
-  `listing_title` varchar(100) DEFAULT NULL,
-  `date_listed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_closed` timestamp NULL DEFAULT NULL,
-  `job_title` varchar(45) DEFAULT NULL,
-  `job_description` text,
-  `additional_information` text,
-  `listing_status` varchar(25) DEFAULT NULL,
-  `experience_level` varchar(100) DEFAULT NULL,
-  `model_resume` text,
-  `model_cover_letter` text,
+  "id": "int",
+  "userId": "int",
+  "department": "varchar(25)",
+  "listingTitle": "varchar(100)",
+  "dateListed": "timestamp",
+  "dateClosed": "timestamp",
+  "jobTitle": "varchar(45)",
+  "jobDescription": "text",
+  "additionalInformation": "text",
+  "listingStatus": "varchar(25)",
+  "experienceLevel": "varchar(100)",
+  "modelResume": "text",
+  "modelCoverLetter": "text"
 }
+```
 
-job PUT:
+---
 
-requires body:
+### PUT `/job/{id}`
+**Description:** Updates an existing job listing.
 
-{`id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `department` varchar(25) DEFAULT NULL,
-  `listing_title` varchar(100) DEFAULT NULL,
-  `date_listed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_closed` timestamp NULL DEFAULT NULL,
-  `job_title` varchar(45) DEFAULT NULL,
-  `job_description` text,
-  `additional_information` text,
-  `listing_status` varchar(25) DEFAULT NULL,
-  `experience_level` varchar(100) DEFAULT NULL,
-  `model_resume` text,
-  `model_cover_letter` text,
-}
-
-job/id?=id DELETE 
-
-requires an id param 
-requires the cookie with the JWT so that if the JWT and the user_id match then it the job will be deleted
-
-returns 204 code 
-
-job/id?=id/filter=?filter GET
-
-job/id?=id/applications GET
-
-expects id in the param of the job 
-
-returns
-
-list 
+**Request Body:**
+```json
 {
- `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `job_id` int DEFAULT NULL,
-  `date_applied` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover_letter` text,
-  `custom_resume` text,
-  `application_status` varchar(45) DEFAULT NULL,
-   `years_of_experience` int,
-  `match_job_description_score` int,
-  `past_experience_score` int,
-  `motivation_score` int,
-  `acedemic_achievement_score` int,
-  `pegidre_score` int,
-  `tragjectory_score` int,
-  `extenuating_circumstances_score` int,
-  `average_score` text,
-  `review` text,
+  "id": "int",
+  "userId": "int",
+  "department": "varchar(25)",
+  "listingTitle": "varchar(100)",
+  "dateListed": "timestamp",
+  "dateClosed": "timestamp",
+  "jobTitle": "varchar(45)",
+  "jobDescription": "text",
+  "additionalInformation": "text",
+  "listingStatus": "varchar(25)",
+  "experienceLevel": "varchar(100)",
+  "modelResume": "text",
+  "modelCoverLetter": "text"
 }
+```
 
+**Response:** Same as the request body with updated values.
 
-application/id?=id GET
+---
 
-expects id param
+### DELETE `/job/{id}`
+**Description:** Deletes a job listing.
 
-returns 
+**Path Parameters:**
+- `id` (required) – The ID of the job.
 
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `userId` of the job listing.
+
+**Response:** HTTP status `204 No Content`.
+
+---
+
+### GET `/job/{id}/filter={filter}`
+**Description:** Retrieves job listings based on a filter.
+
+**Path Parameters:**
+- `id` (required) – The ID of the job.
+- `filter` (optional) – Filter criteria.
+
+---
+
+### GET `/job/{id}/applications`
+**Description:** Retrieves a list of applications for a specific job.
+
+**Path Parameters:**
+- `id` (required) – The ID of the job.
+
+**Response:**
+```json
+[
+  {
+    "id": "int",
+    "userId": "int",
+    "jobId": "int",
+    "dateApplied": "timestamp",
+    "coverLetter": "text",
+    "customResume": "text",
+    "applicationStatus": "varchar(45)",
+    "yearsOfExperience": "int",
+    "matchJobDescriptionScore": "int",
+    "pastExperienceScore": "int",
+    "motivationScore": "int",
+    "academicAchievementScore": "int",
+    "pedigreeScore": "int",
+    "trajectoryScore": "int",
+    "extenuatingCircumstancesScore": "int",
+    "averageScore": "text",
+    "review": "text"
+  }
+]
+```
+
+---
+
+## Application Service
+
+**Base URL:** `http://localhost:8000/application/`
+
+### GET `/application/{id}`
+**Description:** Retrieves application details by ID.
+
+**Path Parameters:**
+- `id` (required) – The ID of the application.
+
+**Response:**
+```json
 {
- `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `job_id` int DEFAULT NULL,
-  `date_applied` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover_letter` text,
-  `custom_resume` text,
-  `application_status` varchar(45) DEFAULT NULL,
+  "id": "int",
+  "userId": "int",
+  "jobId": "int",
+  "dateApplied": "timestamp",
+  "coverLetter": "text",
+  "customResume": "text",
+  "applicationStatus": "varchar(45)"
 }
+```
 
-application POST
+---
 
-expects the below request body:
+### POST `/application`
+**Description:** Submits a new job application.
 
+**Request Body:**
+```json
 {
- `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `job_id` int DEFAULT NULL,
-  `date_applied` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover_letter` text,
-  `custom_resume` text,
-  `application_status` varchar(45) DEFAULT NULL,
+  "id": "int",
+  "userId": "int",
+  "jobId": "int",
+  "dateApplied": "timestamp",
+  "coverLetter": "text",
+  "customResume": "text",
+  "applicationStatus": "varchar(45)"
 }
+```
 
-returns: 
+**Response:** Same as the request body with created values.
 
+---
+
+### PUT `/application/{id}`
+**Description:** Updates an existing job application.
+
+**Request Body:**
+```json
 {
- `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `job_id` int DEFAULT NULL,
-  `date_applied` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover_letter` text,
-  `custom_resume` text,
-  `application_status` varchar(45) DEFAULT NULL,
+  "id": "int",
+  "userId": "int",
+  "jobId": "int",
+  "dateApplied": "timestamp",
+  "coverLetter": "text",
+  "customResume": "text",
+  "applicationStatus": "varchar(45)"
 }
+```
 
-application/id?=id PUT
+---
 
-expects the below body:
+### DELETE `/application/{id}`
+**Description:** Deletes a job application.
 
-{
- `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `job_id` int DEFAULT NULL,
-  `date_applied` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover_letter` text,
-  `custom_resume` text,
-  `application_status` varchar(45) DEFAULT NULL,
-}
+**Path Parameters:**
+- `id` (required) – The ID of the application.
 
-returns: 
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `userId` of the application.
 
-{
- `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `job_id` int DEFAULT NULL,
-  `date_applied` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `cover_letter` text,
-  `custom_resume` text,
-  `application_status` varchar(45) DEFAULT NULL,
-}
+**Response:** HTTP status `204 No Content`.
 
-application/id?=id DELETE
+---
 
-expects id param 
-expects to have the JWT in the cookie that will hold the user_id which will need match 
-
-returns 204
-
-
-
-
+This updated version reflects camel case for all field names while maintaining clarity and structure.
