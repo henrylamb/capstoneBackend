@@ -84,6 +84,8 @@
 
 ## Job & Application Service
 
+## Job
+
 **Base URL:** `http://localhost:8000/api/`
 
 ### GET `/job/{id}`
@@ -233,7 +235,7 @@
 
 ---
 
-## Application Service
+## Application
 
 **Base URL:** `http://localhost:8000/application/`
 
