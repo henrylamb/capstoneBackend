@@ -67,7 +67,7 @@ User role of "manager" can read any user data.
 
 ---
 
-### PUT `/users/{id}` - ?
+### PUT `/users/{id}`
 **Description:** Updates user details.
 
 User role of "user" won't be able to update other users' data. 
@@ -92,7 +92,7 @@ User role of "user" won't be able to update other users' data.
 
 ---
 
-### PUT `/users/admin/{id}` - ?
+### PUT `/users/admin/{id}`
 **Description:** Updates user details.
 
 User role of "admin" can update any user who has the same admin_id value as whats in the cookie. 
