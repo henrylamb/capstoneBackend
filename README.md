@@ -181,6 +181,7 @@ Returns 204 HTTP code.
 }
 ```
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
 ---
 
 ### PUT `/job/{id}`
@@ -263,6 +264,7 @@ Returns 204 HTTP code.
 ]
 ```
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
 ---
 
 ## Application
@@ -307,7 +309,9 @@ Returns 204 HTTP code.
 ```
 
 **Response:** Same as the request body with created values.
+
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
 ---
 
 ### PUT `/application/{id}`
