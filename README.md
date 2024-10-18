@@ -396,7 +396,7 @@ It can only be accessed by the hiring manager, i.e., a user who created the job 
 
 ---
 
-### GET `/job/page=page/items=items` 
+### GET `/job/page?={page}&items?={items}` 
 **Description:** Retrieves job listings based on pagination
 
 **Path Parameters:**
