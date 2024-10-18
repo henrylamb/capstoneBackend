@@ -7,6 +7,8 @@
 ### POST `/registration`
 **Description:** Registers a new user.
 
+This is for normal users. For hiring managers and admins, these would be created through a registration endpoint, and then the admin in the frontend would do a PUT request to update the users' role to hiring manager or admin in the case of super-admin.
+
 **Request Body:**
 ```json
 {
