@@ -94,6 +94,24 @@ User role of "admin" can update any user who has the same admin_id value as what
 
 ---
 
+### DELETE `/users/{id}` - ?
+**Description:** Updates user details.
+
+User role of "user" won't be able to update other users' data. 
+
+User role of "admin" can update any user who has the same admin_id value as whats in the cookie. 
+
+**Path Parameters:**
+- `id` (required) – The ID of the user.
+
+Returns 204 HTTP code.
+
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
+```
+
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
 ## Job & Application Service
 
 ## Job
