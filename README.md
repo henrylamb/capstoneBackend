@@ -108,10 +108,6 @@ Returns 204 HTTP code.
 
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 
-```
-
-**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
-
 ## Job & Application Service
 
 ## Job
