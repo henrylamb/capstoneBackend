@@ -72,6 +72,29 @@ User role of "manager" can read any user data.
 
 User role of "user" won't be able to update other users' data. 
 
+**Path Parameters:**
+- `id` (required) – The ID of the user.
+
+**Request Body:**
+```json
+{
+  "fullName": "varchar(50)",
+  "email": "varchar(50)",
+  "address": "varchar(100)",
+  "phone": "varchar(25)",
+  "resume": "text",
+  "department": "varchar(50)",
+  "role": "varchar(50)"
+}
+```
+
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
+---
+
+### PUT `/users/admin/{id}` - ?
+**Description:** Updates user details.
+
 User role of "admin" can update any user who has the same admin_id value as whats in the cookie. 
 
 **Path Parameters:**
@@ -94,7 +117,23 @@ User role of "admin" can update any user who has the same admin_id value as what
 
 ---
 
-### DELETE `/users/{id}` - ?
+### DELETE `/users/{id}`
+**Description:** Updates user details.
+
+User role of "user" won't be able to update other users' data. 
+
+User role of "admin" can update any user who has the same admin_id value as whats in the cookie. 
+
+**Path Parameters:**
+- `id` (required) – The ID of the user.
+
+Returns 204 HTTP code.
+
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
+---
+
+### DELETE `/users/admin/{id}`
 **Description:** Updates user details.
 
 User role of "user" won't be able to update other users' data. 
@@ -357,8 +396,29 @@ Only a candidate would be able to submit an application for a job. This role wou
 
 ---
 
-### PUT `/application/{id}` - ?
+### PUT `/application/{id}` 
 **Description:** Updates an existing job application.
+
+**Request Body:**
+```json
+{
+  "id": "int",
+  "userId": "int",
+  "dateApplied": "timestamp",
+  "coverLetter": "text",
+  "customResume": "text",
+}
+```
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
+Only a candidate would be able to modify the fields in the request body.
+
+---
+
+### PUT `/application/manager/{id}`
+**Description:** Updates an existing job application.
+
+This is only for the manager. Its the endpoint which allows the manager to alter the status of the application
 
 **Request Body:**
 ```json
@@ -377,6 +437,7 @@ Only a candidate would be able to submit an application for a job. This role wou
 Only a candidate would be able to modify all the fields of the application. Whereas, a hiring manager would be able to ONLY update the applicationStatus value.
 
 ---
+
 
 ### DELETE `/application/{id}`
 **Description:** Deletes a job application.
