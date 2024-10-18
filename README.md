@@ -25,6 +25,9 @@
 ### GET `/users/{id}`
 **Description:** Retrieves user details by ID.
 
+User role of "user" won't be able to read other users' data. 
+User role of "manager" can read any user data. 
+
 **Path Parameters:**
 - `id` (required) – The ID of the user.
 
