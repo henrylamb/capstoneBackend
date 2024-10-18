@@ -137,6 +137,8 @@ Returns 204 HTTP code.
 }
 ```
 
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
 ---
 
 ### POST `/job`
@@ -178,7 +180,7 @@ Returns 204 HTTP code.
   "modelCoverLetter": "text"
 }
 ```
-
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 ---
 
 ### PUT `/job/{id}`
@@ -204,6 +206,8 @@ Returns 204 HTTP code.
 ```
 
 **Response:** Same as the request body with updated values.
+
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 
 ---
 
@@ -258,7 +262,7 @@ Returns 204 HTTP code.
   }
 ]
 ```
-
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 ---
 
 ## Application
@@ -283,7 +287,7 @@ Returns 204 HTTP code.
   "applicationStatus": "varchar(45)"
 }
 ```
-
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 ---
 
 ### POST `/application`
@@ -303,7 +307,7 @@ Returns 204 HTTP code.
 ```
 
 **Response:** Same as the request body with created values.
-
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 ---
 
 ### PUT `/application/{id}`
@@ -321,7 +325,7 @@ Returns 204 HTTP code.
   "applicationStatus": "varchar(45)"
 }
 ```
-
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 ---
 
 ### DELETE `/application/{id}`
