@@ -24,6 +24,27 @@ This is for normal users. For hiring managers and admins, these would be created
 
 ---
 
+### POST `/registration/admin`
+**Description:** Registers a new user.
+
+An endpoint to create a hiring manager from the perspective of the admin. 
+
+**Request Body:**
+```json
+{
+  "email": "string",
+  "password": "string",
+  "name": "string"
+}
+```
+
+**Response:**
+- **Body:** Empty
+
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request. And in the cookie, the role must be admin.
+
+---
+
 ### GET `/users/{id}`
 **Description:** Retrieves user details by ID.
 
@@ -47,6 +68,39 @@ User role of "manager" can read any user data.
   "role": "varchar(50)"
 }
 ```
+
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
+---
+
+### GET (Many) `/users/admin/{id}`
+**Description:** Retrieves user details by ID.
+
+User role of "admin" can read any user data which is related to the admin account. 
+
+This request will make a read request to get all the users which have the admin_id value which matches with admin id which is provided with the endpoint. 
+
+**Path Parameters:**
+- `id` (required) – The ID of the user.
+
+**Response:**
+```json
+[
+  {
+    "id": "int",
+    "fullName": "varchar(50)",
+    "email": "varchar(50)",
+    "address": "varchar(100)",
+    "phone": "varchar(25)",
+    "resume": "text",
+    "department": "varchar(50)",
+    "role": "varchar(50)"
+  }
+]
+
+```
+
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request. And in the cookie, the role must be admin.
 
 ---
 
@@ -253,6 +307,40 @@ Only a JWT which contains the value of the role of "hiring-manager" would be abl
 
 It can only be edited by the hiring manager, i.e., a user who created the job posting and has a JWT with the userId value that matches the job posting userId.
 
+---
+
+### PUT `/job/transfer`
+**Description:** Updates an existing job listing.
+
+**Request Body:**
+```json
+{
+  "jobId": "int",
+  "fromUserId": "int",
+  "toUserId": "int",
+}
+```
+
+**Response:**
+```json
+{
+  "id": "int",
+  "userId": "int",
+  "department": "varchar(25)",
+  "listingTitle": "varchar(100)",
+  "dateListed": "timestamp",
+  "dateClosed": "timestamp",
+  "jobTitle": "varchar(45)",
+  "jobDescription": "text",
+  "additionalInformation": "text",
+  "listingStatus": "varchar(25)",
+  "experienceLevel": "varchar(100)",
+  "modelResume": "text",
+  "modelCoverLetter": "text"
+}
+```
+
+**Authorization:** Requires JWT token in a cookie. The role in the JWT must be "admin". 
 
 ---
 
@@ -305,6 +393,63 @@ It can only be edited by the hiring manager, i.e., a user who created the job po
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the userId in the job record.
 
 It can only be accessed by the hiring manager, i.e., a user who created the job posting and has a JWT with the userId value that matches the job posting userId.
+
+---
+
+### GET `/job/page=page/items=items` 
+**Description:** Retrieves job listings based on pagination
+
+**Path Parameters:**
+- `page` (required) – page number
+- `items` (optional) – number of items. Default 20. 
+
+**Response:**
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "userId": 123,
+      "department": "Engineering",
+      "listingTitle": "Software Engineer",
+      "dateListed": "2023-01-01T00:00:00Z",
+      "dateClosed": "2023-01-31T00:00:00Z",
+      "jobTitle": "Senior Developer",
+      "jobDescription": "Develop and maintain software applications.",
+      "additionalInformation": "Remote work available.",
+      "listingStatus": "Open",
+      "experienceLevel": "Senior"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": true,
+      "unsorted": false,
+      "empty": false
+    },
+    "pageNumber": 0,
+    "pageSize": 20,
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "totalPages": 1,
+  "totalElements": 1,
+  "last": true,
+  "size": 20,
+  "number": 0,
+  "sort": {
+    "sorted": true,
+    "unsorted": false,
+    "empty": false
+  },
+  "numberOfElements": 1,
+  "first": true,
+  "empty": false
+}
+```
+
+**Authorization:** Requires JWT token in a cookie.
 
 ---
 
@@ -372,6 +517,39 @@ Only a JWT with the role of candidate would be able to view their own applicatio
 
 ---
 
+### GET `/application/{id}/statistics`
+**Description:** Retrieves application statistics by ID.
+
+**Path Parameters:**
+- `id` (required) – The ID of the application.
+
+**Response:**
+```json
+ {
+    "id": "int",
+    "userId": "int",
+    "jobId": "int",
+    "dateApplied": "timestamp",
+    "coverLetter": "text",
+    "customResume": "text",
+    "applicationStatus": "varchar(45)",
+    "yearsOfExperience": "int",
+    "matchJobDescriptionScore": "int",
+    "pastExperienceScore": "int",
+    "motivationScore": "int",
+    "academicAchievementScore": "int",
+    "pedigreeScore": "int",
+    "trajectoryScore": "int",
+    "extenuatingCircumstancesScore": "int",
+    "averageScore": "text",
+    "review": "text"
+  }
+```
+
+**Authorization:** Requires JWT token in a cookie. To access this endpoint the JWT needs to contain the "admin" role.
+
+---
+
 ### POST `/application`
 **Description:** Submits a new job application.
 
@@ -390,7 +568,7 @@ Only a JWT with the role of candidate would be able to view their own applicatio
 
 **Response:** Same as the request body with created values.
 
-**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `userId` in the request.
 
 Only a candidate would be able to submit an application for a job. This role would be in the JWT
 
