@@ -144,6 +144,8 @@ Returns 204 HTTP code.
 ### POST `/job`
 **Description:** Creates a new job listing.
 
+Only a JWT which contains the value of the role of "hiring-manager" would be able to create a job posting. 
+
 **Request Body:**
 ```json
 {
@@ -229,7 +231,7 @@ It can only be edited by the hiring manager, i.e., a user who created the job po
 
 ---
 
-### GET `/job/{id}/filter={filter}`
+### GET `/job/{id}/filter={filter}` - TODO
 **Description:** Retrieves job listings based on a filter.
 
 **Path Parameters:**
@@ -270,6 +272,8 @@ It can only be edited by the hiring manager, i.e., a user who created the job po
 ```
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 
+It can only be accessed by the hiring manager, i.e., a user who created the job posting and has a JWT with the userId value that matches the job posting userId.
+
 ---
 
 ## Application
@@ -295,6 +299,9 @@ It can only be edited by the hiring manager, i.e., a user who created the job po
 }
 ```
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
+Only a JWT with the role of candidate would be able to view their own application. A JWT containing the role of hiring manager or admin would be able to view any application. 
+
 ---
 
 ### POST `/application`
@@ -317,9 +324,11 @@ It can only be edited by the hiring manager, i.e., a user who created the job po
 
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 
+Only a candidate would be able to submit an application for a job. This role would be in the JWT
+
 ---
 
-### PUT `/application/{id}`
+### PUT `/application/{id}` - ?
 **Description:** Updates an existing job application.
 
 **Request Body:**
@@ -335,6 +344,9 @@ It can only be edited by the hiring manager, i.e., a user who created the job po
 }
 ```
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
+
+Only a candidate would be able to modify all the fields of the application. Whereas, a hiring manager would be able to ONLY update the applicationStatus value.
+
 ---
 
 ### DELETE `/application/{id}`
@@ -344,6 +356,8 @@ It can only be edited by the hiring manager, i.e., a user who created the job po
 - `id` (required) – The ID of the application.
 
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `userId` of the application.
+
+Only a user who has matching JWT userId value with the userId value within the application record would be able to delete it. 
 
 **Response:** HTTP status `204 No Content`.
 
