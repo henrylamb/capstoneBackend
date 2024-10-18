@@ -238,6 +238,35 @@ It can only be edited by the hiring manager, i.e., a user who created the job po
 - `id` (required) – The ID of the job.
 - `filter` (optional) – Filter criteria.
 
+
+**Response:**
+```json
+[
+  {
+    "id": "int",
+    "userId": "int",
+    "jobId": "int",
+    "dateApplied": "timestamp",
+    "coverLetter": "text",
+    "customResume": "text",
+    "applicationStatus": "varchar(45)",
+    "yearsOfExperience": "int",
+    "matchJobDescriptionScore": "int",
+    "pastExperienceScore": "int",
+    "motivationScore": "int",
+    "academicAchievementScore": "int",
+    "pedigreeScore": "int",
+    "trajectoryScore": "int",
+    "extenuatingCircumstancesScore": "int",
+    "averageScore": "text",
+    "review": "text"
+  }
+]
+```
+**Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the userId in the job record.
+
+It can only be accessed by the hiring manager, i.e., a user who created the job posting and has a JWT with the userId value that matches the job posting userId.
+
 ---
 
 ### GET `/job/{id}/applications`
