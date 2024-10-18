@@ -210,6 +210,9 @@ Returns 204 HTTP code.
 
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request.
 
+It can only be edited by the hiring manager, i.e., a user who created the job posting and has a JWT with the userId value that matches the job posting userId.
+
+
 ---
 
 ### DELETE `/job/{id}`
@@ -221,6 +224,8 @@ Returns 204 HTTP code.
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `userId` of the job listing.
 
 **Response:** HTTP status `204 No Content`.
+
+It can only be edited by the hiring manager, i.e., a user who created the job posting and has a JWT with the userId value that matches the job posting userId.
 
 ---
 
