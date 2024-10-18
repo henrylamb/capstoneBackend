@@ -203,9 +203,9 @@ Returns 204 HTTP code.
 
 ## Job & Application Service
 
-## Job
-
 **Base URL:** `http://localhost:8000/api/`
+
+## Job
 
 ### GET `/job/{id}`
 **Description:** Retrieves job details by ID.
@@ -490,8 +490,6 @@ It can only be accessed by the hiring manager, i.e., a user who created the job 
 ---
 
 ## Application
-
-**Base URL:** `http://localhost:8000/application/`
 
 ### GET `/application/{id}`
 **Description:** Retrieves application details by ID.
