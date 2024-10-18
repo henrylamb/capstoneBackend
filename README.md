@@ -28,6 +28,7 @@ This is for normal users. For hiring managers and admins, these would be created
 **Description:** Retrieves user details by ID.
 
 User role of "user" won't be able to read other users' data. 
+
 User role of "manager" can read any user data. 
 
 **Path Parameters:**
@@ -66,8 +67,12 @@ User role of "manager" can read any user data.
 
 ---
 
-### PUT `/users/{id}`
+### PUT `/users/{id}` - ?
 **Description:** Updates user details.
+
+User role of "user" won't be able to update other users' data. 
+
+User role of "admin" can update any user who has the same admin_id value as whats in the cookie. 
 
 **Path Parameters:**
 - `id` (required) – The ID of the user.
