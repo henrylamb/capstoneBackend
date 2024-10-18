@@ -203,7 +203,7 @@ Returns 204 HTTP code.
 
 ## Job & Application Service
 
-**Base URL:** `http://localhost:8000/api/`
+**Base URL:** `http://localhost:7000/api/`
 
 ## Job
 
