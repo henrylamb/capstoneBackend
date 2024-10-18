@@ -37,6 +37,7 @@
   "address": "varchar(100)",
   "phone": "varchar(25)",
   "resume": "text",
+  "department": "varchar(50)",
   "role": "varchar(50)"
 }
 ```
@@ -74,6 +75,7 @@
   "address": "varchar(100)",
   "phone": "varchar(25)",
   "resume": "text",
+  "department": "varchar(50)",
   "role": "varchar(50)"
 }
 ```
@@ -308,6 +310,3 @@
 
 **Response:** HTTP status `204 No Content`.
 
----
-
-This updated version reflects camel case for all field names while maintaining clarity and structure.
