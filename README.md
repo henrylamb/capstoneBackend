@@ -324,7 +324,7 @@ It can only be edited by the hiring manager, i.e., a user who created the job po
 ---
 
 ### PUT `/job/transfer`
-**Description:** Updates an existing job listing.
+**Description:** Updates an existing job listing that is related to one hiring manager, and reassigns the job listing to a another hiring manager.
 
 **Request Body:**
 ```json
