@@ -39,7 +39,14 @@ An endpoint to create a hiring manager from the perspective of the admin.
 ```
 
 **Response:**
-- **Body:** Empty
+```json
+{
+  "id": "string",
+  "role": "string"
+}
+```
+
+  
 
 **Authorization:** Requires JWT token in a cookie. The `userId` in the token must match the `id` in the request. And in the cookie, the role must be admin.
 
@@ -116,7 +123,14 @@ This request will make a read request to get all the users which have the admin_
 ```
 
 **Response:**
-- **Body:** Empty
+**Response:**
+```json
+{
+  "id": "string",
+  "role": "string"
+}
+```
+
 - **Cookie:** JWT token containing claims with `userId` and `role`
 
 ---
